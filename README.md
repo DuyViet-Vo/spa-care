@@ -22,9 +22,3 @@
    ```
    python manage.py runserver 0.0.0.0:8000
    ```
-
-## License
-
-This project is Copyright (c) 2023 and onwards Digital Fortress. It is free software and may be redistributed under the terms specified in the [LICENSE] file.
-
-[LICENSE]: /LICENSE
