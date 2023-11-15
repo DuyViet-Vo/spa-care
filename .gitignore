@@ -1,0 +1,5 @@
+/venv/
+/.idea/
+/spacare/__pycache__/
+/users/__pycache__/
+/quyen/__pycache__/
