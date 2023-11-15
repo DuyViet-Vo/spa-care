@@ -12,7 +12,7 @@
    ```
    pip install -r requirements.txt
    ```
-2. Update database information in `selleraxis/settings/local.py`
+2. Update database information in `selleraxis/settings.py`
 3. Migrate database
    ```
    python manage.py migrate
