@@ -21,7 +21,8 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
-from spacare.quyen.views import LisCreateQuyenView
+from spacare.danh_muc.views import ListCreateDanhMucView, UpdateDeleteDanhMucView
+from spacare.quyen.views import ListCreateQuyenView, UpdateDeleteQuyenView
 from spacare.users.views import UserRegisterView
 
 schema_view = get_schema_view(
@@ -48,5 +49,9 @@ urlpatterns = [
     path("api/register", UserRegisterView.as_view(), name="register"),
     path("api/login", jwt_views.TokenObtainPairView.as_view(), name="login"),
     # Quyen
-    path("api/quyen", LisCreateQuyenView.as_view()),
+    path("api/quyen", ListCreateQuyenView.as_view()),
+    path("api/quyen/<str:id>", UpdateDeleteQuyenView.as_view()),
+    # Danh Muc
+    path("api/danh-muc", ListCreateDanhMucView.as_view()),
+    path("api/danh-muc/<str:id>", UpdateDeleteDanhMucView.as_view()),
 ]
