@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "spacare.users",
     "spacare.quyen",
+    "spacare.danh_muc",
 ]
 
 MIDDLEWARE = [
@@ -170,5 +171,4 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    "EXCEPTION_HANDLER": "selleraxis.core.exceptions.custom_exception_handler",
 }
