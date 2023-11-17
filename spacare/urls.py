@@ -22,8 +22,10 @@ from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
 from spacare.danh_muc.views import ListCreateDanhMucView, UpdateDeleteDanhMucView
+from spacare.dich_vu.views import ListCreateDichVuView, UpdateDeleteDichVuView
 from spacare.quyen.views import ListCreateQuyenView, UpdateDeleteQuyenView
-from spacare.users.views import UserRegisterView
+from spacare.san_pham.views import ListCreateSanPhamView, UpdateDeleteSanPhamView
+from spacare.users.views import ListUserView, UpdateUserView, UserRegisterView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -48,10 +50,18 @@ urlpatterns = [
     # User
     path("api/register", UserRegisterView.as_view(), name="register"),
     path("api/login", jwt_views.TokenObtainPairView.as_view(), name="login"),
+    path("api/user", ListUserView.as_view()),
+    path("api/user/<str:id>", UpdateUserView.as_view()),
     # Quyen
     path("api/quyen", ListCreateQuyenView.as_view()),
     path("api/quyen/<str:id>", UpdateDeleteQuyenView.as_view()),
     # Danh Muc
     path("api/danh-muc", ListCreateDanhMucView.as_view()),
     path("api/danh-muc/<str:id>", UpdateDeleteDanhMucView.as_view()),
+    # San Pham
+    path("api/san-pham", ListCreateSanPhamView.as_view()),
+    path("api/san-pham/<str:id>", UpdateDeleteSanPhamView.as_view()),
+    # Dich Vu
+    path("api/dich-vu", ListCreateDichVuView.as_view()),
+    path("api/dich-vu/<str:id>", UpdateDeleteDichVuView.as_view()),
 ]
