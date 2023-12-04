@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "drf_yasg",
     "rest_framework",
+    "corsheaders",
     "spacare.users",
     "spacare.quyen",
     "spacare.danh_muc",
     "spacare.san_pham",
     "spacare.dich_vu",
+    "spacare.lich_hen",
 ]
 
 MIDDLEWARE = [
@@ -56,6 +58,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "spacare.urls"
@@ -174,3 +178,6 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
+
+# CORS
+CORS_ALLOW_ALL_ORIGINS = True
