@@ -23,6 +23,7 @@ from rest_framework_simplejwt import views as jwt_views
 
 from spacare.danh_muc.views import ListCreateDanhMucView, UpdateDeleteDanhMucView
 from spacare.dich_vu.views import ListCreateDichVuView, UpdateDeleteDichVuView
+from spacare.lich_hen.views import ListCreateLichHenView, UpdateDeleteLichHenView
 from spacare.quyen.views import ListCreateQuyenView, UpdateDeleteQuyenView
 from spacare.san_pham.views import ListCreateSanPhamView, UpdateDeleteSanPhamView
 from spacare.users.views import ListUserView, UpdateUserView, UserRegisterView
@@ -64,4 +65,7 @@ urlpatterns = [
     # Dich Vu
     path("api/dich-vu", ListCreateDichVuView.as_view()),
     path("api/dich-vu/<str:id>", UpdateDeleteDichVuView.as_view()),
+    # lich hen
+    path("api/lich-hen", ListCreateLichHenView.as_view()),
+    path("api/lich-hen/<str:id>", UpdateDeleteLichHenView.as_view()),
 ]
