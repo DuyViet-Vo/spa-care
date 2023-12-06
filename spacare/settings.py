@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "spacare.san_pham",
     "spacare.dich_vu",
     "spacare.lich_hen",
+    "spacare.chi_tiet_lich_hen",
 ]
 
 MIDDLEWARE = [

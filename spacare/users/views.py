@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 
-from spacare.core.pagination import Pagination
 from spacare.users.models import User
 
 from .serializers import RegistrationSerializer, UpdateUserSerializer, UserSerializer
@@ -40,7 +39,9 @@ class ListUserView(ListAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
-    pagination_class = Pagination
+
+    def get_queryset(self):
+        return self.queryset.filter(id=self.request.user.id)
 
 
 class UpdateUserView(UpdateAPIView):
