@@ -21,6 +21,10 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
+from spacare.chi_tiet_lich_hen.views import (
+    ListCreateChiTietLichHenView,
+    UpdateDeleteChiTietLichHenView,
+)
 from spacare.danh_muc.views import ListCreateDanhMucView, UpdateDeleteDanhMucView
 from spacare.dich_vu.views import ListCreateDichVuView, UpdateDeleteDichVuView
 from spacare.lich_hen.views import ListCreateLichHenView, UpdateDeleteLichHenView
@@ -68,4 +72,7 @@ urlpatterns = [
     # lich hen
     path("api/lich-hen", ListCreateLichHenView.as_view()),
     path("api/lich-hen/<str:id>", UpdateDeleteLichHenView.as_view()),
+    # Chi tiet lich hen
+    path("api/chi-tiet-lich-hen", ListCreateChiTietLichHenView.as_view()),
+    path("api/chi-tiet-lich-hen/<str:id>", UpdateDeleteChiTietLichHenView.as_view()),
 ]

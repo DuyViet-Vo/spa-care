@@ -9,7 +9,6 @@ class LichHenAdmin(admin.ModelAdmin):
         "id",
         "khach_hanh",
         "nhan_vien",
-        "dich_vu",
         "thoi_gian_hen",
         "trang_thai",
         "created_at",
