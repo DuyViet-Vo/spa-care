@@ -22,6 +22,7 @@ from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
 from spacare.chi_tiet_lich_hen.views import (
+    BulkCreateChiTietLichHenView,
     ListCreateChiTietLichHenView,
     UpdateDeleteChiTietLichHenView,
 )
@@ -73,6 +74,7 @@ urlpatterns = [
     path("api/lich-hen", ListCreateLichHenView.as_view()),
     path("api/lich-hen/<str:id>", UpdateDeleteLichHenView.as_view()),
     # Chi tiet lich hen
+    path("api/chi-tiet-lich-hen/bulk", BulkCreateChiTietLichHenView.as_view()),
     path("api/chi-tiet-lich-hen", ListCreateChiTietLichHenView.as_view()),
     path("api/chi-tiet-lich-hen/<str:id>", UpdateDeleteChiTietLichHenView.as_view()),
 ]
