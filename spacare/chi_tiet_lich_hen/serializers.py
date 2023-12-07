@@ -26,3 +26,12 @@ class ReadChiTietLichHenSerializer(serializers.ModelSerializer):
             "created_at": {"read_only": True},
             "updated_at": {"read_only": True},
         }
+
+
+class BulkChiTietLichHenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChiTietLichHen
+        fields = [
+            "dich_vu",
+            "lich_hen",
+        ]
