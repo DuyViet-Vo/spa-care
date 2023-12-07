@@ -10,7 +10,6 @@ class ListCreateDichVuView(ListCreateAPIView):
     model = DichVu
     serializer_class = DichVuSerializer
     queryset = DichVu.objects.all()
-    permission_classes = [IsAuthenticated]
     pagination_class = Pagination
 
 

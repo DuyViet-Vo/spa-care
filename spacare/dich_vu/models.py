@@ -10,5 +10,6 @@ class DichVu(models.Model):
     mo_ta = models.CharField(max_length=255, null=True)
     gia = models.BigIntegerField(default=0)
     thoi_gian_thuc_hien = models.IntegerField(default=0, null=True)
+    selected = models.BooleanField(default=False, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
