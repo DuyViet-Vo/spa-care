@@ -31,7 +31,13 @@ from spacare.dich_vu.views import ListCreateDichVuView, UpdateDeleteDichVuView
 from spacare.lich_hen.views import ListCreateLichHenView, UpdateDeleteLichHenView
 from spacare.quyen.views import ListCreateQuyenView, UpdateDeleteQuyenView
 from spacare.san_pham.views import ListCreateSanPhamView, UpdateDeleteSanPhamView
-from spacare.users.views import ListUserView, UpdateUserView, UserRegisterView
+from spacare.users.views import (
+    ListNhanVienView,
+    ListUserView,
+    UpdateUserView,
+    UserRegisterView,
+    UserView,
+)
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -56,8 +62,10 @@ urlpatterns = [
     # User
     path("api/register", UserRegisterView.as_view(), name="register"),
     path("api/login", jwt_views.TokenObtainPairView.as_view(), name="login"),
-    path("api/user", ListUserView.as_view()),
+    path("api/user", UserView.as_view()),
     path("api/user/<str:id>", UpdateUserView.as_view()),
+    path("api/nhan-vien", ListNhanVienView.as_view()),
+    path("api/list-user", ListUserView.as_view()),
     # Quyen
     path("api/quyen", ListCreateQuyenView.as_view()),
     path("api/quyen/<str:id>", UpdateDeleteQuyenView.as_view()),

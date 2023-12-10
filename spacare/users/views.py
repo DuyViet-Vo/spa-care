@@ -1,6 +1,8 @@
 from django.contrib.auth.hashers import make_password
 from django.http import JsonResponse
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 
@@ -34,7 +36,7 @@ class UserRegisterView(CreateAPIView):
             )
 
 
-class ListUserView(ListAPIView):
+class UserView(ListAPIView):
     model = User
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -49,3 +51,28 @@ class UpdateUserView(UpdateAPIView):
     lookup_field = "id"
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
+
+
+class ListUserView(ListAPIView):
+    model = User
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
+    filter_backends = [OrderingFilter, SearchFilter, DjangoFilterBackend]
+    ordering_fields = ["quyen", "trang_thai"]
+    search_fields = ["ho_ten", "sdt", "trang_thai"]
+    filterset_fields = ["quyen"]
+
+
+class ListNhanVienView(ListAPIView):
+    model = User
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
+    ordering_fields = ["quyen", "trang_thai"]
+    search_fields = ["ho_ten", "sdt", "trang_thai"]
+    filterset_fields = ["quyen"]
+
+    def get_queryset(self):
+        quyen_ids = [2, 3, 4]
+        return self.queryset.filter(quyen__id__in=quyen_ids)

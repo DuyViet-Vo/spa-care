@@ -3,15 +3,19 @@ from rest_framework.permissions import IsAuthenticated
 
 from spacare.core.pagination import Pagination
 from spacare.san_pham.models import SanPham
-from spacare.san_pham.serializers import SanPhamSerializer
+from spacare.san_pham.serializers import ReadSanPhamSerializer, SanPhamSerializer
 
 
 class ListCreateSanPhamView(ListCreateAPIView):
     model = SanPham
     serializer_class = SanPhamSerializer
     queryset = SanPham.objects.all()
-    permission_classes = [IsAuthenticated]
     pagination_class = Pagination
+
+    def get_serializer_class(self):
+        if self.request.method == "GET":
+            return ReadSanPhamSerializer
+        return SanPhamSerializer
 
 
 class UpdateDeleteSanPhamView(RetrieveUpdateDestroyAPIView):
@@ -19,3 +23,8 @@ class UpdateDeleteSanPhamView(RetrieveUpdateDestroyAPIView):
     lookup_field = "id"
     queryset = SanPham.objects.all()
     permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.request.method == "GET":
+            return ReadSanPhamSerializer
+        return SanPhamSerializer

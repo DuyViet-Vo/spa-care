@@ -5,7 +5,7 @@ from spacare.danh_muc.models import DanhMuc
 
 class DichVu(models.Model):
     danh_muc = models.ForeignKey(DanhMuc, on_delete=models.CASCADE)
-    hinh_anh = models.CharField(max_length=255, null=True)
+    hinh_anh = models.TextField(null=True)
     ten_dich_vu = models.CharField(max_length=255)
     mo_ta = models.CharField(max_length=255, null=True)
     gia = models.BigIntegerField(default=0)
