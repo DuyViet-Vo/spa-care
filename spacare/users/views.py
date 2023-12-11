@@ -8,7 +8,12 @@ from rest_framework.permissions import IsAuthenticated
 
 from spacare.users.models import User
 
-from .serializers import RegistrationSerializer, UpdateUserSerializer, UserSerializer
+from .serializers import (
+    ReadUserSerializer,
+    RegistrationSerializer,
+    UpdateUserSerializer,
+    UserSerializer,
+)
 
 
 class UserRegisterView(CreateAPIView):
@@ -66,7 +71,7 @@ class ListUserView(ListAPIView):
 
 class ListNhanVienView(ListAPIView):
     model = User
-    serializer_class = UserSerializer
+    serializer_class = ReadUserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
     ordering_fields = ["quyen", "trang_thai"]
