@@ -38,6 +38,7 @@ from spacare.users.views import (
     UserRegisterView,
     UserView,
 )
+from spacare.uu_dai.views import ListCreateUuDaiView, UpdateDeleteUuDaiView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -85,4 +86,7 @@ urlpatterns = [
     path("api/chi-tiet-lich-hen/bulk", BulkCreateChiTietLichHenView.as_view()),
     path("api/chi-tiet-lich-hen", ListCreateChiTietLichHenView.as_view()),
     path("api/chi-tiet-lich-hen/<str:id>", UpdateDeleteChiTietLichHenView.as_view()),
+    # Uu dai
+    path("api/uu-dai", ListCreateUuDaiView.as_view()),
+    path("api/uu-dai/<str:id>", UpdateDeleteUuDaiView.as_view()),
 ]
