@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.exceptions import ParseError
 from rest_framework.generics import (
@@ -12,6 +13,7 @@ from spacare.chi_tiet_lich_hen.models import ChiTietLichHen
 from spacare.chi_tiet_lich_hen.serializers import (
     BulkChiTietLichHenSerializer,
     ChiTietLichHenSerializer,
+    ReadChiTietLichHenSerializer,
 )
 from spacare.core.pagination import Pagination
 
@@ -39,6 +41,13 @@ class ListCreateChiTietLichHenView(ListCreateAPIView):
     queryset = ChiTietLichHen.objects.all()
     permission_classes = [IsAuthenticated]
     pagination_class = Pagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["lich_hen__khach_hanh__id"]
+
+    def get_serializer_class(self):
+        if self.request.method == "GET":
+            return ReadChiTietLichHenSerializer
+        return ChiTietLichHenSerializer
 
 
 class UpdateDeleteChiTietLichHenView(RetrieveUpdateDestroyAPIView):

@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 
@@ -12,6 +13,8 @@ class ListCreateLichHenView(ListCreateAPIView):
     queryset = LichHen.objects.all()
     permission_classes = [IsAuthenticated]
     pagination_class = Pagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["khach_hanh"]
 
     def get_serializer_class(self):
         if self.request.method == "GET":

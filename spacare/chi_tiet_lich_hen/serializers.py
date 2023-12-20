@@ -34,4 +34,5 @@ class BulkChiTietLichHenSerializer(serializers.ModelSerializer):
         fields = [
             "dich_vu",
             "lich_hen",
+            "trang_thai",
         ]
