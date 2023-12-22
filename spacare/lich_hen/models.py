@@ -14,9 +14,6 @@ class LichHen(models.Model):
     khach_hanh = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="khach_hang"
     )
-    nhan_vien = models.ForeignKey(
-        User, null=True, on_delete=models.CASCADE, related_name="nhan_vien"
-    )
     thoi_gian_hen = models.DateTimeField()
     trang_thai = models.CharField(
         max_length=255, choices=TrangThai.choices, default=TrangThai.chua_duyet

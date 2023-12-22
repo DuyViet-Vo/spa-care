@@ -42,7 +42,7 @@ class ListCreateChiTietLichHenView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     pagination_class = Pagination
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["lich_hen__khach_hanh__id"]
+    filterset_fields = ["lich_hen__khach_hanh__id", "trang_thai", "nhan_vien"]
 
     def get_serializer_class(self):
         if self.request.method == "GET":
