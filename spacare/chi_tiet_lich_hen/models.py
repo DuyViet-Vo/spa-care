@@ -25,6 +25,6 @@ class ChiTietLichHen(models.Model):
     trang_thai = models.CharField(
         max_length=255, choices=TrangThai.choices, default=TrangThai.chua_hoan_thanh
     )
-    ghi_chu = models.CharField(null=True, max_length=255)
+    ghi_chu = models.CharField(null=True, max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
