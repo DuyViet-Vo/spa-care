@@ -3,6 +3,7 @@ from rest_framework import serializers
 from spacare.chi_tiet_lich_hen.models import ChiTietLichHen
 from spacare.dich_vu.serializers import DichVuSerializer
 from spacare.lich_hen.models import LichHen
+from spacare.users.serializers import UserSerializer
 
 
 class ChiTietLichHenSerializer(serializers.ModelSerializer):
@@ -30,6 +31,7 @@ class LichHenSerializerShow(serializers.ModelSerializer):
 class ReadChiTietLichHenSerializer(serializers.ModelSerializer):
     dich_vu = DichVuSerializer(read_only=True)
     lich_hen = LichHenSerializerShow(read_only=True)
+    nhan_vien = UserSerializer(read_only=True)
 
     class Meta:
         model = ChiTietLichHen
