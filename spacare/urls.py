@@ -31,6 +31,7 @@ from spacare.dich_vu.views import ListCreateDichVuView, UpdateDeleteDichVuView
 from spacare.lich_hen.views import ListCreateLichHenView, UpdateDeleteLichHenView
 from spacare.quyen.views import ListCreateQuyenView, UpdateDeleteQuyenView
 from spacare.san_pham.views import ListCreateSanPhamView, UpdateDeleteSanPhamView
+from spacare.send_email.views import SendEmailView
 from spacare.users.views import (
     ListNhanVienView,
     ListUserView,
@@ -89,4 +90,6 @@ urlpatterns = [
     # Uu dai
     path("api/uu-dai", ListCreateUuDaiView.as_view()),
     path("api/uu-dai/<str:id>", UpdateDeleteUuDaiView.as_view()),
+    # send email
+    path("api/send-email", SendEmailView.as_view()),
 ]
