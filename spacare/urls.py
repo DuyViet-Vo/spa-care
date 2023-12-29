@@ -91,5 +91,5 @@ urlpatterns = [
     path("api/uu-dai", ListCreateUuDaiView.as_view()),
     path("api/uu-dai/<str:id>", UpdateDeleteUuDaiView.as_view()),
     # send email
-    path("api/send-email", SendEmailView.as_view()),
+    path("api/send-email-lich-hen", SendEmailView.as_view()),
 ]

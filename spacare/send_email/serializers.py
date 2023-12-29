@@ -1,5 +1,5 @@
 from rest_framework import serializers
 
 
-class EmailSend(serializers.Serializer):
-    to_email = serializers.CharField()
+class SendEmailLichHen(serializers.Serializer):
+    id_lich_hen = serializers.IntegerField()

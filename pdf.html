@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin-top: 3%;
+
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .header {
+            height: auto;
+            margin-left: 10%;
+            margin-bottom: 5%;
+        }
+
+        img {
+            width: 20%;
+            float: left;
+        }
+
+        .container {
+            clear: right;
+            margin-left: 10%;
+        }
+
+        .sologan {
+            float: right;
+            margin-right: 10%;
+
+        }
+
+        .tieu_de {
+            text-align: center;
+            padding-top: 5%
+        }
+        table{
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div>
+            <img src="./logo3.jpg" alt="anh logo">
+        </div>
+        <div class="sologan">
+            <h2>SPACARE</h2>
+            <h3>PHUN XĂM THẪM MỸ - ĐIỀU TRỊ DA CHUYÊN SÂU - NAIL - TÓC</h3>
+            <p>Địa chỉ: Hoà Thuận - Tam Kỳ - Quảng Nam</p>
+            <p>Số điện thoại: 0983.388.888</p>
+            <p>Email: spacare.beautiful@gmail.com</p>
+            <p>Website: spacare-beautiful.com</p>
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="tieu_de">THEO DÕI KHÁCH HÀNG</h2>
+        <h4>Tên khách hàng: {{name}}</h4>
+        <h4>Số điện thoại: {{phone_number}}</h4>
+        <h4>Lịch hẹn: {{lich_hen}}</h4>
+        <h4 style="text-align: center;">Bảng danh sách dịch vụ</h4>
+        <table>
+            <thead>
+                <tr >
+                    <th>Số thứ tự</th>
+                    <th>Dịch vụ</th>
+                    <th>Trạng Thái</th>
+                    <th>Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{products}}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

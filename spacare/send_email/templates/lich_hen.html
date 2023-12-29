@@ -9,16 +9,16 @@
 </head>
 <body style="padding: 5px;margin: 0;background-color: rgb(255, 242, 222);">
     <header>
-        <h2 class="title" style="padding: 2px;">Thông báo lịch hẹn</h2>
+        <h2 class="title" style="padding: 2px;">{{subject}}</h2>
     </header>
     <div class="content" style="width: 90%;margin-left: auto;margin-right: auto;">
-        <h4>Chào Viet</h4>
+        <h4>Chào {{email}}</h4>
         <div class="main" style=" display: flex;">
             <div class="text" style="width: 30%;font-size: 15px;font-weight: bold;color: #c4c4c4;line-height: 60px;text-align: center;padding-top: 20px;">MÃ XÁC THỰC</div>
             <div class="notification">
-                <p>Bạn đã yêu cầu xác thực email trên hệ thống Kim Anh Shop vào lúc ....</p>
+                <p>Bạn đã yêu cầu xác thực email trên hệ thống Kim Anh Shop vào lúc {{time}}</p>
                 <p>đây là mã code của bạn</p>
-                <h3>.....</h3>
+                <h3>{{code}}</h3>
             </div>
         </div>
         <p>Thanks you</p>
