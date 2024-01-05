@@ -21,11 +21,16 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
+from spacare.chi_tiet_combo.views import (
+    ListCreateChiTietComboView,
+    UpdateDeleteChiTietComboView,
+)
 from spacare.chi_tiet_lich_hen.views import (
     BulkCreateChiTietLichHenView,
     ListCreateChiTietLichHenView,
     UpdateDeleteChiTietLichHenView,
 )
+from spacare.combo.views import ListCreateComboView, UpdateDeleteComboView
 from spacare.danh_muc.views import ListCreateDanhMucView, UpdateDeleteDanhMucView
 from spacare.dich_vu.views import ListCreateDichVuView, UpdateDeleteDichVuView
 from spacare.lich_hen.views import ListCreateLichHenView, UpdateDeleteLichHenView
@@ -92,4 +97,10 @@ urlpatterns = [
     path("api/uu-dai/<str:id>", UpdateDeleteUuDaiView.as_view()),
     # send email
     path("api/send-email-lich-hen", SendEmailView.as_view()),
+    # combo
+    path("api/combo", ListCreateComboView.as_view()),
+    path("api/combo/<str:id>", UpdateDeleteComboView.as_view()),
+    # chi tiet combo
+    path("api/chi-tiet-combo", ListCreateChiTietComboView.as_view()),
+    path("api/chi-tiet-combo/<str:id>", UpdateDeleteChiTietComboView.as_view()),
 ]
