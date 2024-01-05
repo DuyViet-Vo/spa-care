@@ -50,13 +50,14 @@ class SendEmailView(CreateAPIView):
         pdf_filename = create_pdf(ten, sdt, thoi_gian_hen, products)
 
         mail_from = settings.EMAIL_HOST_USER
-        mail_to = self.request.user.ho_ten
+        mail_to = self.request.user.email
+        name = self.request.user.ho_ten
         subject = "THÔNG BÁO LICH HEN"
         text_content = "This is an important message."
         content = {
             "code": "123123",
             "time": "11h11 20/10/2023",
-            "email": mail_to,
+            "email": name,
         }
 
         # Render HTML content
@@ -67,7 +68,6 @@ class SendEmailView(CreateAPIView):
 
         # Attach HTML content
         msg.attach_alternative(html_content, "text/html")
-
         # Attach PDF file
         with open(pdf_filename, "rb") as pdf_file:
             msg.attach_file(pdf_file.name)
