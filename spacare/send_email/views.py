@@ -37,9 +37,9 @@ class SendEmailView(CreateAPIView):
         products = []
         stt = 0
         for chi_tiet in chi_tiet_lich_hen:
-            tt = stt + 1
+            stt = stt + 1
             product = {
-                "stt": tt,
+                "stt": stt,
                 "dich_vu": chi_tiet["dich_vu"]["ten_dich_vu"],
                 "trang_thai": chi_tiet["trang_thai"],
                 "ghi_chu": chi_tiet["ghi_chu"],
@@ -50,7 +50,7 @@ class SendEmailView(CreateAPIView):
         pdf_filename = create_pdf(ten, sdt, thoi_gian_hen, products)
 
         mail_from = settings.EMAIL_HOST_USER
-        mail_to = self.request.user.email
+        mail_to = self.request.user.ho_ten
         subject = "THÔNG BÁO LICH HEN"
         text_content = "This is an important message."
         content = {
