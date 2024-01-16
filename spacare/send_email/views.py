@@ -36,6 +36,7 @@ class SendEmailView(CreateAPIView):
 
         products = []
         stt = 0
+        dich_vu_mail = ""
         for chi_tiet in chi_tiet_lich_hen:
             stt = stt + 1
             product = {
@@ -44,6 +45,7 @@ class SendEmailView(CreateAPIView):
                 "trang_thai": chi_tiet["trang_thai"],
                 "ghi_chu": chi_tiet["ghi_chu"],
             }
+            dich_vu_mail += chi_tiet["dich_vu"]["ten_dich_vu"] + ","
             products.append(product)
 
         # Create PDF file
@@ -51,17 +53,19 @@ class SendEmailView(CreateAPIView):
 
         mail_from = settings.EMAIL_HOST_USER
         mail_to = self.request.user.email
-        name = self.request.user.ho_ten
+
+        ho_ten = self.request.user.ho_ten
+
         subject = "THÔNG BÁO LICH HEN"
         text_content = "This is an important message."
         content = {
-            "code": "123123",
-            "time": "11h11 20/10/2023",
-            "email": name,
+            "ho_ten": ho_ten,
+            "thoi_gian_hen": thoi_gian_hen,
+            "dich_vu": dich_vu_mail,
         }
 
         # Render HTML content
-        html_content = render_to_string("lich_hen.html", context=content)
+        html_content = render_to_string("lich_hen_chua_duyet.html", context=content)
 
         # Create EmailMultiAlternatives instance
         msg = EmailMultiAlternatives(subject, text_content, mail_from, [mail_to])

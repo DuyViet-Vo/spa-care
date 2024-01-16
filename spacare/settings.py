@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     "spacare.chi_tiet_lich_hen",
     "spacare.uu_dai",
     "spacare.send_email",
+    "spacare.combo",
+    "spacare.chi_tiet_combo",
 ]
 
 MIDDLEWARE = [
