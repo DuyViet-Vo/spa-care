@@ -53,6 +53,7 @@ class SendEmailView(CreateAPIView):
 
         mail_from = settings.EMAIL_HOST_USER
         mail_to = self.request.user.email
+
         ho_ten = self.request.user.ho_ten
 
         subject = "THÔNG BÁO LICH HEN"
@@ -71,7 +72,6 @@ class SendEmailView(CreateAPIView):
 
         # Attach HTML content
         msg.attach_alternative(html_content, "text/html")
-
         # Attach PDF file
         with open(pdf_filename, "rb") as pdf_file:
             msg.attach_file(pdf_file.name)
