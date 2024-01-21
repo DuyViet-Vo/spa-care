@@ -7,8 +7,8 @@ from spacare.users.models import User
 
 
 class TrangThai(models.TextChoices):
-    chua_hoan_thanh = "Chưa Hoàn Thành", _("chua_hoan_thanh")
-    dang_hoan_thanh = "Đang Hoàn Thành", _("dang_hoan_thanh")
+    chua_thuc_hien = "Chưa Thực Hiện", _("chua_thuc_hien")
+    dang_thuc_hien = "Đang Thực Hiện", _("dang_thuc_hien")
     da_hoan_thanh = "Đã hoàn thành", _("da_hoan_thanh")
 
 
@@ -23,7 +23,7 @@ class ChiTietLichHen(models.Model):
         LichHen, on_delete=models.CASCADE, related_name="chi_tiet_lich_hen"
     )
     trang_thai = models.CharField(
-        max_length=255, choices=TrangThai.choices, default=TrangThai.chua_hoan_thanh
+        max_length=255, choices=TrangThai.choices, default=TrangThai.chua_thuc_hien
     )
     ghi_chu = models.CharField(null=True, max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
