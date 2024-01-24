@@ -5,10 +5,12 @@ from rest_framework import status
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from spacare.users.models import User
 
 from .serializers import (
+    CreateNhanVien,
     ReadUserSerializer,
     RegistrationSerializer,
     UpdateUserSerializer,
@@ -81,3 +83,26 @@ class ListNhanVienView(ListAPIView):
     def get_queryset(self):
         quyen_ids = [2, 3, 4]
         return self.queryset.filter(quyen__id__in=quyen_ids)
+
+
+class CreateNhanVienView(CreateAPIView):
+    serializer_class = CreateNhanVien
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = CreateNhanVien(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data.get("email")
+        quyen = serializer.validated_data.get("quyen")
+        nhan_vien = User.objects.filter(email=email)
+        if not nhan_vien.exists():
+            return Response(
+                {"message": "User not found with the given email"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Nếu có người dùng, thực hiện cập nhật và trả về 200 OK
+        nhan_vien.update(quyen_id=quyen)
+        return Response(
+            {"message": "Create nhan vien successfully"}, status=status.HTTP_200_OK
+        )

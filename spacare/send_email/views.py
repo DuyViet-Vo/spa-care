@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from spacare.lich_hen.models import LichHen
 from spacare.lich_hen.serializers import ReadLichHenSerializer
 from spacare.send_email.serializers import SendEmailLichHen
-from spacare.send_email.services import convert_datetime, create_pdf
+from spacare.send_email.services import convert_datetime, create_pdf, format_number
 
 
 class SendEmailView(CreateAPIView):
@@ -34,7 +34,7 @@ class SendEmailView(CreateAPIView):
         sdt = data_lich_hen["khach_hanh"]["sdt"]
         thoi_gian_hen = convert_datetime(data_lich_hen["thoi_gian_hen"])
         chi_tiet_lich_hen = data_lich_hen["chi_tiet_lich_hen"]
-
+        tong_tien = format_number(data_lich_hen["tong_tien"])
         products = []
         stt = 0
         dich_vu_mail = ""
@@ -48,9 +48,9 @@ class SendEmailView(CreateAPIView):
             }
             dich_vu_mail += chi_tiet["dich_vu"]["ten_dich_vu"] + "; "
             products.append(product)
-
+        print(products)
         # Create PDF file
-        pdf_filename = create_pdf(ten, sdt, thoi_gian_hen, products)
+        pdf_filename = create_pdf(ten, sdt, thoi_gian_hen, products, tong_tien)
 
         mail_from = settings.EMAIL_HOST_USER
 
@@ -102,6 +102,7 @@ class SendEmailChuaDuyet(CreateAPIView):
         ten = data_lich_hen["khach_hanh"]["ho_ten"]
         mail_to = data_lich_hen["khach_hanh"]["email"]
         thoi_gian_hen = convert_datetime(data_lich_hen["thoi_gian_hen"])
+        tong_tien = format_number(data_lich_hen["tong_tien"])
         chi_tiet_lich_hen = data_lich_hen["chi_tiet_lich_hen"]
 
         dich_vu_mail = ""
@@ -114,6 +115,7 @@ class SendEmailChuaDuyet(CreateAPIView):
             "ho_ten": ten,
             "thoi_gian_hen": thoi_gian_hen,
             "dich_vu": dich_vu_mail,
+            "tong_tien": tong_tien,
         }
         # Render HTML content
         html_content = render_to_string("lich_hen_chua_duyet.html", context=content)

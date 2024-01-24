@@ -4,7 +4,7 @@ from datetime import datetime
 from pyhtml2pdf import converter
 
 
-def create_pdf(name, phone_number, lich_hen, products):
+def create_pdf(name, phone_number, lich_hen, products, tong_tien):
     html_template_path = os.path.abspath("pdf.html")
 
     # Đọc nội dung từ file HTML mẫu
@@ -15,6 +15,7 @@ def create_pdf(name, phone_number, lich_hen, products):
     html_content = html_content.replace("{{name}}", name)
     html_content = html_content.replace("{{lich_hen}}", lich_hen)
     html_content = html_content.replace("{{phone_number}}", phone_number)
+    html_content = html_content.replace("{{tong_tien}}", tong_tien)
 
     # Chuyển danh sách sản phẩm thành chuỗi HTML
     products_html = ""
@@ -55,3 +56,8 @@ def convert_datetime(input_string):
         return output_string
     except ValueError:
         return "Invalid datetime format"
+
+
+def format_number(number):
+    formatted_number = "{:,}".format(number)
+    return formatted_number

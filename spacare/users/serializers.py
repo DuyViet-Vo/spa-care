@@ -80,3 +80,8 @@ class ReadUserSerializer(serializers.ModelSerializer):
             "trang_thai",
             "hinh_anh",
         )
+
+
+class CreateNhanVien(serializers.Serializer):
+    email = serializers.CharField()
+    quyen = serializers.IntegerField()

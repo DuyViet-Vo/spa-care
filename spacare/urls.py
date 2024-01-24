@@ -38,6 +38,7 @@ from spacare.quyen.views import ListCreateQuyenView, UpdateDeleteQuyenView
 from spacare.san_pham.views import ListCreateSanPhamView, UpdateDeleteSanPhamView
 from spacare.send_email.views import SendEmailChuaDuyet, SendEmailView
 from spacare.users.views import (
+    CreateNhanVienView,
     ListNhanVienView,
     ListUserView,
     UpdateUserView,
@@ -73,6 +74,7 @@ urlpatterns = [
     path("api/user/<str:id>", UpdateUserView.as_view()),
     path("api/nhan-vien", ListNhanVienView.as_view()),
     path("api/list-user", ListUserView.as_view()),
+    path("api/create-nhan-vien", CreateNhanVienView.as_view()),
     # Quyen
     path("api/quyen", ListCreateQuyenView.as_view()),
     path("api/quyen/<str:id>", UpdateDeleteQuyenView.as_view()),
