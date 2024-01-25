@@ -27,6 +27,7 @@ class User(AbstractUser):
     gioi_tinh = models.CharField(max_length=100, null=True)
     trang_thai = models.BooleanField(default=True)
     hinh_anh = models.CharField(max_length=255, null=True)
+    luong = models.BigIntegerField(null=True)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 

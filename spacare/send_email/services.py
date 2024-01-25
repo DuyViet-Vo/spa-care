@@ -21,7 +21,7 @@ def create_pdf(name, phone_number, lich_hen, products, tong_tien):
     products_html = ""
     for product in products:
         products_html += (
-            f"<tr><td>{product['stt']}</td><td>{product['dich_vu']}</td>"
+            f"<tr><td>{product['stt']}</td><td>{product['dich_vu']}</td><td>{product['gia_tien']}</td>"
             f"<td>{product['trang_thai']}</td><td>{product['ghi_chu']}</td></tr>"
         )
 

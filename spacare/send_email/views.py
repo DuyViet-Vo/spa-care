@@ -46,6 +46,7 @@ class SendEmailView(CreateAPIView):
             product = {
                 "stt": stt,
                 "dich_vu": chi_tiet["dich_vu"]["ten_dich_vu"],
+                "gia_tien": chi_tiet["dich_vu"]["gia"],
                 "trang_thai": chi_tiet["trang_thai"],
                 "ghi_chu": chi_tiet["ghi_chu"],
             }

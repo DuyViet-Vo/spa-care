@@ -44,6 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
             "gioi_tinh",
             "trang_thai",
             "hinh_anh",
+            "luong",
         )
 
 
@@ -79,9 +80,11 @@ class ReadUserSerializer(serializers.ModelSerializer):
             "gioi_tinh",
             "trang_thai",
             "hinh_anh",
+            "luong",
         )
 
 
 class CreateNhanVien(serializers.Serializer):
     email = serializers.CharField()
     quyen = serializers.IntegerField()
+    luong = serializers.CharField()

@@ -94,6 +94,7 @@ class CreateNhanVienView(CreateAPIView):
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get("email")
         quyen = serializer.validated_data.get("quyen")
+        luong = serializer.validated_data.get("luong")
         nhan_vien = User.objects.filter(email=email)
         if not nhan_vien.exists():
             return Response(
@@ -102,7 +103,7 @@ class CreateNhanVienView(CreateAPIView):
             )
 
         # Nếu có người dùng, thực hiện cập nhật và trả về 200 OK
-        nhan_vien.update(quyen_id=quyen)
+        nhan_vien.update(quyen_id=quyen, luong=luong)
         return Response(
             {"message": "Create nhan vien successfully"}, status=status.HTTP_200_OK
         )
