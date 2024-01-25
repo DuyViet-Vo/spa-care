@@ -55,3 +55,8 @@ class UpdateDeleteChiTietLichHenView(RetrieveUpdateDestroyAPIView):
     lookup_field = "id"
     queryset = ChiTietLichHen.objects.all()
     permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.request.method == "GET":
+            return ReadChiTietLichHenSerializer
+        return ChiTietLichHenSerializer

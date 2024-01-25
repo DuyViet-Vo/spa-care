@@ -8,10 +8,13 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from spacare.chi_tiet_lich_hen.models import ChiTietLichHen
+from spacare.chi_tiet_lich_hen.serializers import ReadChiTietLichHenSerializer
 from spacare.lich_hen.models import LichHen
 from spacare.lich_hen.serializers import ReadLichHenSerializer
-from spacare.send_email.serializers import SendEmailLichHen
+from spacare.send_email.serializers import SendEmailLichHen, SendEmialChiTiet
 from spacare.send_email.services import convert_datetime, create_pdf, format_number
+from spacare.users.models import User
 
 
 class SendEmailView(CreateAPIView):
@@ -48,7 +51,6 @@ class SendEmailView(CreateAPIView):
             }
             dich_vu_mail += chi_tiet["dich_vu"]["ten_dich_vu"] + "; "
             products.append(product)
-        print(products)
         # Create PDF file
         pdf_filename = create_pdf(ten, sdt, thoi_gian_hen, products, tong_tien)
 
@@ -120,6 +122,76 @@ class SendEmailChuaDuyet(CreateAPIView):
         # Render HTML content
         html_content = render_to_string("lich_hen_chua_duyet.html", context=content)
         msg = EmailMultiAlternatives(subject, None, mail_from, [mail_to])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+        return Response(
+            {"message": "Email sent successfully"}, status=status.HTTP_200_OK
+        )
+
+
+class SendEmailThucHien(CreateAPIView):
+    serializer_class = SendEmialChiTiet
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = SendEmialChiTiet(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        id_chi_tiet = serializer.validated_data.get("id_chi_tiet")
+        chi_tiet_lich_hen = ChiTietLichHen.objects.filter(id=id_chi_tiet).first()
+
+        if not chi_tiet_lich_hen:
+            return Response({"message": "LichHen not found"}, status=404)
+
+        data_chi_tiet = ReadChiTietLichHenSerializer(instance=chi_tiet_lich_hen).data
+        id_khach_hang = data_chi_tiet["lich_hen"]["khach_hanh"]
+        nhan_vien = data_chi_tiet["nhan_vien"]["ho_ten"]
+        dich_vu = data_chi_tiet["dich_vu"]["ten_dich_vu"]
+        khachang = User.objects.filter(id=id_khach_hang).first()
+
+        mail_from = settings.EMAIL_HOST_USER
+        subject = "THÔNG BÁO LICH HEN"
+        content = {
+            "nhan_vien": nhan_vien,
+            "dich_vu": dich_vu,
+        }
+        # Render HTML content
+        html_content = render_to_string("thuc_hien.html", context=content)
+        msg = EmailMultiAlternatives(subject, None, mail_from, [khachang])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+        return Response(
+            {"message": "Email sent successfully"}, status=status.HTTP_200_OK
+        )
+
+
+class SendEmailDaThucHien(CreateAPIView):
+    serializer_class = SendEmialChiTiet
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = SendEmialChiTiet(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        id_chi_tiet = serializer.validated_data.get("id_chi_tiet")
+        chi_tiet_lich_hen = ChiTietLichHen.objects.filter(id=id_chi_tiet).first()
+
+        if not chi_tiet_lich_hen:
+            return Response({"message": "LichHen not found"}, status=404)
+
+        data_chi_tiet = ReadChiTietLichHenSerializer(instance=chi_tiet_lich_hen).data
+        id_khach_hang = data_chi_tiet["lich_hen"]["khach_hanh"]
+        nhan_vien = data_chi_tiet["nhan_vien"]["ho_ten"]
+        dich_vu = data_chi_tiet["dich_vu"]["ten_dich_vu"]
+        khachang = User.objects.filter(id=id_khach_hang).first()
+
+        mail_from = settings.EMAIL_HOST_USER
+        subject = "THÔNG BÁO LICH HEN"
+        content = {
+            "nhan_vien": nhan_vien,
+            "dich_vu": dich_vu,
+        }
+        # Render HTML content
+        html_content = render_to_string("da_thuc_hien.html", context=content)
+        msg = EmailMultiAlternatives(subject, None, mail_from, [khachang])
         msg.attach_alternative(html_content, "text/html")
         msg.send()
         return Response(

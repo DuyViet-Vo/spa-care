@@ -36,7 +36,12 @@ from spacare.dich_vu.views import ListCreateDichVuView, UpdateDeleteDichVuView
 from spacare.lich_hen.views import ListCreateLichHenView, UpdateDeleteLichHenView
 from spacare.quyen.views import ListCreateQuyenView, UpdateDeleteQuyenView
 from spacare.san_pham.views import ListCreateSanPhamView, UpdateDeleteSanPhamView
-from spacare.send_email.views import SendEmailChuaDuyet, SendEmailView
+from spacare.send_email.views import (
+    SendEmailChuaDuyet,
+    SendEmailDaThucHien,
+    SendEmailThucHien,
+    SendEmailView,
+)
 from spacare.users.views import (
     CreateNhanVienView,
     ListNhanVienView,
@@ -100,6 +105,8 @@ urlpatterns = [
     # send email
     path("api/send-email/chua-duyet", SendEmailChuaDuyet.as_view()),
     path("api/send-email/da-duyet", SendEmailView.as_view()),
+    path("api/send-email/thuc-hien", SendEmailThucHien.as_view()),
+    path("api/send-email/da-thuc-hien", SendEmailDaThucHien.as_view()),
     # combo
     path("api/combo", ListCreateComboView.as_view()),
     path("api/combo/<str:id>", UpdateDeleteComboView.as_view()),
