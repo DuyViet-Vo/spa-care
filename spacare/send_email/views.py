@@ -147,6 +147,7 @@ class SendEmailThucHien(CreateAPIView):
         id_khach_hang = data_chi_tiet["lich_hen"]["khach_hanh"]
         nhan_vien = data_chi_tiet["nhan_vien"]["ho_ten"]
         dich_vu = data_chi_tiet["dich_vu"]["ten_dich_vu"]
+
         khachang = User.objects.filter(id=id_khach_hang).first()
 
         mail_from = settings.EMAIL_HOST_USER
@@ -180,21 +181,56 @@ class SendEmailDaThucHien(CreateAPIView):
 
         data_chi_tiet = ReadChiTietLichHenSerializer(instance=chi_tiet_lich_hen).data
         id_khach_hang = data_chi_tiet["lich_hen"]["khach_hanh"]
+        id_lich_hen = data_chi_tiet["lich_hen"]["id"]
+        lich_hen = LichHen.objects.filter(id=id_lich_hen).first()
+
+        if not lich_hen:
+            return Response({"message": "LichHen not found"}, status=404)
+
+        data_lich_hen = ReadLichHenSerializer(instance=lich_hen).data
+
+        ten = data_lich_hen["khach_hanh"]["ho_ten"]
+        sdt = data_lich_hen["khach_hanh"]["sdt"]
+        thoi_gian_hen = convert_datetime(data_lich_hen["thoi_gian_hen"])
+        chi_tiet_lich_hen = data_lich_hen["chi_tiet_lich_hen"]
+        tong_tien = format_number(data_lich_hen["tong_tien"])
+        products = []
+        stt = 0
+        dich_vu_mail = ""
+        for chi_tiet in chi_tiet_lich_hen:
+            stt = stt + 1
+            product = {
+                "stt": stt,
+                "dich_vu": chi_tiet["dich_vu"]["ten_dich_vu"],
+                "gia_tien": chi_tiet["dich_vu"]["gia"],
+                "trang_thai": chi_tiet["trang_thai"],
+                "ghi_chu": chi_tiet["ghi_chu"],
+            }
+            dich_vu_mail += chi_tiet["dich_vu"]["ten_dich_vu"] + "; "
+            products.append(product)
+        # Create PDF file
+        pdf_filename = create_pdf(ten, sdt, thoi_gian_hen, products, tong_tien)
+
         nhan_vien = data_chi_tiet["nhan_vien"]["ho_ten"]
         dich_vu = data_chi_tiet["dich_vu"]["ten_dich_vu"]
         khachang = User.objects.filter(id=id_khach_hang).first()
+        gia = data_chi_tiet["dich_vu"]["gia"]
 
         mail_from = settings.EMAIL_HOST_USER
         subject = "THÔNG BÁO LICH HEN"
-        content = {
-            "nhan_vien": nhan_vien,
-            "dich_vu": dich_vu,
-        }
+        content = {"nhan_vien": nhan_vien, "dich_vu": dich_vu, "gia": gia}
         # Render HTML content
         html_content = render_to_string("da_thuc_hien.html", context=content)
         msg = EmailMultiAlternatives(subject, None, mail_from, [khachang])
         msg.attach_alternative(html_content, "text/html")
+        with open(pdf_filename, "rb") as pdf_file:
+            msg.attach_file(pdf_file.name)
+
+        # Send the email
         msg.send()
+
+        # Delete the PDF file after sending the email
+        os.remove(pdf_filename)
         return Response(
             {"message": "Email sent successfully"}, status=status.HTTP_200_OK
         )
